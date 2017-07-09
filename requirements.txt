@@ -1,0 +1,17 @@
+Django==1.10.6
+django-disqus==0.5
+django-haystack==2.6.1
+django-import-export==0.5.1
+django-nocaptcha-recaptcha==0.0.19
+django-suit==0.2.25
+django-wysiwyg-redactor==0.5.1
+Markdown==2.6.8
+mock==2.0.0
+pbr==3.1.1
+Pillow==4.2.0
+psycopg2==2.7.1
+requests==2.18.1
+six==1.10.0
+tablib==0.11.5
+pytz==2017.2
+jieba==0.38
