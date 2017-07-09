@@ -2,7 +2,6 @@ Django Blog
 
 -------
 
-Release Source Code of Django Blog Python Learning v.3.8
 
 ### Technologies
 
