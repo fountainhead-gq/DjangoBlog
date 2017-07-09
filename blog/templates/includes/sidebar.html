@@ -1,0 +1,101 @@
+
+{% load staticfiles %}
+
+{% comment %}
+{% load disqus_tags %}
+{% endcomment %}
+
+{% load globaltags %}
+
+<div class="sidebar-module sidebar-module-inset">
+    <div class="widget-title">
+      <span>AUTHOR</span>
+    </div>
+    <div class="about-author-container">
+      <div class="author-avatar">
+        <img src="{% static "assets/images/avatar.jpg" %}" alt="郭澍存" >
+      </div>
+      <div class="author-info">
+        <p>Here comes the first snow this year. Not in time, but finally it comes.Let me do a little bit of change this year. It will be fun. </p>
+      </div>
+    </div>
+    <!--<iframe src="https://ghbtns.com/github-btn.html?user=agusmakmun&repo=Django-Blog-Python-Learning&type=fork&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
+    <!--<iframe src="https://ghbtns.com/github-btn.html?user=agusmakmun&repo=Django-Blog-Python-Learning&type=star&count=true" frameborder="0" scrolling="0" width="100px" height="20px"></iframe>-->
+</div>
+
+<!--<div class="sidebar-module sidebar-module-inset">
+	<button onclick="location.href='/join/'" type="button" class="btn btn-info btn-block cst__radius">
+    <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Join Author
+  </button>
+	<button onclick="location.href='//python.web.id/media/files/Python_Learning.apk'" type="button" class="btn btn-success btn-block cst__radius">
+    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> Download APK
+  </buton>
+</div>-->
+
+
+{% comment %}
+<div class="sidebar-module sidebar-module-inset">
+  <!--<h4>Recent Comments</h4>-->
+  <div class="widget-title">
+    <span>Recent Comments</span>
+  </div>
+  {% disqus_recent_comments shortname 5 50 0 24 %}
+</div>
+{% endcomment %} 
+
+<div class="sidebar-module sidebar-module-inset">
+  <!--<h4>Recent Posts</h4>-->
+  <div class="widget-title">
+    <span>Latest Articles</span>
+  </div>
+  <div class="widget_recent_entries">
+      {% recentposts as recentposts_list %}
+      {% for post in recentposts_list %}
+      <li>
+        <a href="{% url 'detail_post_page' slug=post.slug %}">{{ post.title }}</a>
+        <!--<span>{{post.modified|date:"SHORT_DATE_FORMAT"}}</span>-->
+        <span>{{post.modified|date:"Y/m/d D"}}</span>
+      </li>
+      
+      {% empty %}
+    <p>暂无文章</p>
+  {% endfor %}
+  </div>
+</div>
+
+<div class="sidebar-module sidebar-module-inset">
+  <!--<h4>Entire Tags</h4>-->
+  <div class="widget-title">
+    <span>Tags</span>
+  </div>
+  <div class="astrif_widget_popular_entries"> 
+    {% populartags as populartags_list %}
+    {% for tag in populartags_list %}
+    <li>
+      <span class="popular-entry-title">
+        <a class="popular-entry-title-link" href="{% url 'tag_posts_page' slug=tag.tag.slug %}">
+          {{ tag.tag.title }} <span class="badge pull-right">{{ tag.total }}</span>
+        </a>
+      </span>  
+    </li>
+  {% empty %}
+    <p>No tags yet!</p>
+  {% endfor %}
+  </div>
+</div>
+
+
+<div class="sidebar-module sidebar-module-inset">
+  <div class="widget-title">
+    <span>Sitemap</span>
+  </div>
+  <div class="astrif_widget_popular_entries"> 
+    <li>
+      <span class="popular-entry-title">
+        <a class="popular-entry-title-link" href="{% url 'sitemap_page' %}">
+          Sitemap
+        </a>
+      </span>  
+    </li> 
+  </div>
+</div>
