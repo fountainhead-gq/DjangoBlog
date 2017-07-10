@@ -3,6 +3,7 @@
 {% block canonical_url %}{{ block.super }}/sitemap/{% endblock %}
 
 {% block content %}
+{% if content %}
   <div class="post sitemap">
     <h2>Sitemap</h2>
     {% if object_list %}
@@ -33,4 +34,5 @@
       <a {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}" aria-label="Next" {% endif %}><span aria-hidden="true">&raquo;</span></a>
     </li>
   </ul>
+{% endif %}  
 {% endblock %}

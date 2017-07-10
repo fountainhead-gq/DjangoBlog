@@ -35,6 +35,17 @@ class Author(models.Model):
         verbose_name_plural = 'Authors'
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = 'Detail Category'
+        verbose_name_plural = 'Category'    
+
+
 class Tag(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
@@ -66,6 +77,7 @@ class Post(TimeStampedModel):
                               blank=True,
                               help_text='Optional cover post')
     description = RedactorField()
+    category = models.ForeignKey(Category)
     tags = models.ManyToManyField('Tag')
     keywords = models.CharField(max_length=200, null=True, blank=True,
                                 help_text='Keywords sparate by comma.')

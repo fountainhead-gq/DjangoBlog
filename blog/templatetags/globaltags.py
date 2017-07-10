@@ -36,3 +36,14 @@ def populartags():
 def recentposts():
     posts = Post.objects.published()
     return posts[:5]
+
+
+@register.assignment_tag
+def categoryposts():
+    category = Category.objects.all()
+    return category[:10]
+
+
+@register.simple_tag
+def archivesposts():
+    return Post.objects.dates('created', 'month', order='DESC')    

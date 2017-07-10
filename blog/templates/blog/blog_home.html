@@ -27,15 +27,15 @@
           </a>
         </div>
       {% endif %}
-      <!--{{ object.description|safe|striptags|truncatewords:"50"|linebreaks }}-->
-      {{ object.description|safe|truncatewords:"50" }}
+      <!--{{ object.description|safe|truncatewords:"50"|linebreaks }}-->
+      {{ object.description|safe|truncatewords:"200"|linebreaks  }}
       <span class='post-button' style="margin-bottom: .5em;float:right">
         <a href="{% url 'detail_post_page' slug=object.slug %}">Continue »</a>
       </span>
       <div style="clear:both;border-bottom: 1px solid #F2F2F2;margin: 10px 0"></div>
     </div>
   {% empty %}
-    <p class="alert alert-warning text-center cst__radus"><span class="glyphicon glyphicon-info-sign"></span> Posts does not exist!</p>
+    <p class="alert alert-warning text-center cst__radus"><span class="glyphicon glyphicon-info-sign"></span> Articles does not exist!</p>
   {% endfor %}
 
   {% if is_paginated %}

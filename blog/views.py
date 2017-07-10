@@ -13,6 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.template import RequestContext
 from django.conf import settings
 from django.db.models import (Q, Count)
+from .models import Category
 
 from blog.models import *
 from blog.forms import ContactForm
@@ -60,6 +61,29 @@ class HomepageView(generic.ListView):
             self.request.GET.get('page')
         ).get_page_range()
         return context_data
+
+
+class CategoryView(generic.ListView):
+    model = Post
+    template_name = 'blog/blog_home.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        return super(CategoryView, self).get_queryset().filter(category=cate)
+
+
+class ArchivesView(generic.ListView):
+    model = Post
+    template_name = 'blog/blog_home.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        year = self.kwargs.get('year')
+        month = self.kwargs.get('month')
+        return super(ArchivesView, self).get_queryset().filter(created__year=year,
+                                                               created__month=month
+                                                               )
 
 
 class DetailPostView(generic.DetailView):

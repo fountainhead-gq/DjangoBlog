@@ -25,6 +25,15 @@ class AuthorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     search_fields = ['user__username', 'user__email', 'about']
     list_filter = ['user__is_active', 'user__is_staff', 'user__is_superuser']
 
+class CategoryResource(resources.ModelResource):
+    
+    class Meta:
+        model = Category
+
+class CategoryAdmin(ImportExportModelAdmin, admin.ModelAdmin):
+    resource_class = CategoryResource
+    list_display = ('name',)
+    search_fields = ['name']
 
 class TagResource(resources.ModelResource):
 
@@ -132,6 +141,7 @@ class VisitorAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Gallery, GalleryAdmin)

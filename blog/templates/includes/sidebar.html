@@ -66,6 +66,50 @@
 <div class="sidebar-module sidebar-module-inset">
   <!--<h4>Entire Tags</h4>-->
   <div class="widget-title">
+    <span>Archives</span>
+  </div>
+  <div class="astrif_widget_popular_entries">
+    {% archivesposts as archives_list %} 
+    {% for archives  in archives_list   %}
+    <li>
+      <span class="popular-entry-title">
+        <a class="popular-entry-title-link" href="{% url 'archives' archives.year archives.month %}">
+          {{ archives.year }} 年 {{ archives.month }} 月
+        </a>
+      </span>  
+    </li>
+  {% empty %}
+    <p>No archives yet!</p>
+  {% endfor %}
+  </div>
+</div>
+
+
+<div class="sidebar-module sidebar-module-inset">
+  <!--<h4>Entire Tags</h4>-->
+  <div class="widget-title">
+    <span>Category</span>
+  </div>
+  <div class="astrif_widget_popular_entries">
+    {% categoryposts as category_list %} 
+    {% for category  in category_list  %}
+    <li>
+      <span class="popular-entry-title">
+        <a class="popular-entry-title-link" href="{% url 'category' category.pk %}">
+          {{ category.name }}
+        </a>
+      </span>  
+    </li>
+  {% empty %}
+    <p>No category yet!</p>
+  {% endfor %}
+  </div>
+</div>
+
+
+<div class="sidebar-module sidebar-module-inset">
+  <!--<h4>Entire Tags</h4>-->
+  <div class="widget-title">
     <span>Tags</span>
   </div>
   <div class="astrif_widget_popular_entries"> 

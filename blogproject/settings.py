@@ -31,14 +31,12 @@ INSTALLED_APPS = [
     # Adding Django admin suit
     'blog.apps.SuitConfig',
     # 'suit',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django.contrib.sitemaps',
     'django.contrib.sites',
 
@@ -46,7 +44,6 @@ INSTALLED_APPS = [
     'redactor',
     'nocaptcha_recaptcha',
     'import_export',
-
     'blog',
 ]
 
