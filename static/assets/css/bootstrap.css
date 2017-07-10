@@ -17,6 +17,7 @@ body {
     margin: 0
 }
 
+
 article,
 aside,
 details,
@@ -4051,29 +4052,33 @@ fieldset[disabled] .btn-warning:hover {
 
 .btn-danger {
     color: #fff;
-    background-color: #d9534f;
-    border-color: #d43f3a
+    background-color: #222;
+    /* background-color: #d9534f; */
+    /* border-color: #d43f3a */
 }
 
 .btn-danger.focus,
 .btn-danger:focus {
     color: #fff;
-    background-color: #c9302c;
-    border-color: #761c19
+    background-color: #555;
+    /* background-color: #c9302c;
+    border-color: #761c19 */
 }
 
 .btn-danger:hover {
     color: #fff;
-    background-color: #c9302c;
-    border-color: #ac2925
+    background-color: #555;
+    /* background-color: #c9302c; */
+    /* border-color: #ac2925 */
 }
 
 .btn-danger.active,
 .btn-danger:active,
 .open>.dropdown-toggle.btn-danger {
     color: #fff;
-    background-color: #c9302c;
-    border-color: #ac2925
+    background-color: #555;
+    /* background-color: #c9302c;
+    border-color: #ac2925 */
 }
 
 .btn-danger.active.focus,
@@ -4086,8 +4091,9 @@ fieldset[disabled] .btn-warning:hover {
 .open>.dropdown-toggle.btn-danger:focus,
 .open>.dropdown-toggle.btn-danger:hover {
     color: #fff;
-    background-color: #ac2925;
-    border-color: #761c19
+    background-color: #555;
+    /* background-color: #ac2925;
+    border-color: #761c19 */
 }
 
 .btn-danger.active,
@@ -4254,6 +4260,11 @@ tbody.collapse.in {
     outline: 0
 }
 
+.dropdown .dropdown-menu {
+    display: none;
+    /* overflow-y: scroll; */
+}
+
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -4263,11 +4274,13 @@ tbody.collapse.in {
     float: left;
     min-width: 160px;
     padding: 5px 0;
-    margin: 2px 0 0;
+    /* margin: 2px 0 0; */
+    margin: 2px -50px;
     font-size: 14px;
     text-align: left;
     list-style: none;
     background-color: #fff;
+    /* background-color: #555; */
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
     border: 1px solid #ccc;
@@ -4287,6 +4300,16 @@ tbody.collapse.in {
     margin: 9px 0;
     overflow: hidden;
     background-color: #e5e5e5
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 20px;
+  color: #333333;
+  white-space: nowrap;
 }
 
 .dropdown-menu>li>a {

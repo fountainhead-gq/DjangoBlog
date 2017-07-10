@@ -49,28 +49,28 @@ img.cover-post {
   color: #fff;
   background: #555;
 }
-.btn {
+.btns {
   border: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
-.btn-primary {
+.btns-primary {
   background-color: #337ab7;
 }
-.btn-info {
+.btns-info {
   background-color: #33A4B7;
 }
-.btn-warning {
+.btns-warning {
   background-color: #f0AD4E;
 }
-.btn-success {
+.btns-success {
   background-color: #33B757;
 }
-.btn-danger {
+.btns-danger {
   /*background-color: #B73333;*/
   background-color: #222;
   line-height: 1.5;
 }
-.btn-danger:hover {
+.btns-danger:hover {
   background-color: #555;
 }
 .title__bold {
@@ -80,7 +80,7 @@ img.cover-post {
   border-radius: 2px;
 }
 
-.cst__btn__search__outline {
+.cst__btns__search__outline {
   /*border: 1px solid #ccc;*/
 }
 .cst__tags {
@@ -132,7 +132,7 @@ Follow me on Twitter @maridlcrmn
 
 .navbar-brand { position: relative; z-index: 2; }
 
-.navbar-nav.navbar-right .btn { position: relative; z-index: 2; padding: 4px 20px; margin: 10px auto; transition: transform 0.3s; }
+.navbar-nav.navbar-right .btns { position: relative; z-index: 2; padding: 4px 20px; margin: 10px auto; transition: transform 0.3s; }
 
 .navbar .navbar-collapse { position: relative; overflow: hidden !important; }
 .navbar .navbar-collapse .navbar-right > li:last-child { padding-left: 22px; }
@@ -143,10 +143,10 @@ Follow me on Twitter @maridlcrmn
 .navbar .nav-collapse .navbar-form { border-width: 0; box-shadow: none; }
 .nav-collapse>li { float: right; }
 
-.btn.btn-circle { border-radius: 50px; }
-.btn.btn-outline { background-color: transparent; }
+.btns.btns-circle { border-radius: 50px; }
+.btns.btns-outline { background-color: transparent; }
 
-.navbar-nav.navbar-right .btn:not(.collapsed) {
+.navbar-nav.navbar-right .btns:not(.collapsed) {
     /*background-color: rgb(111, 84, 153);*/
     /*border-color: rgb(111, 84, 153);*/
     background-color: #555;
