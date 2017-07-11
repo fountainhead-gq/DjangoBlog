@@ -3,31 +3,6 @@
 {% block title %}{{ object.title }} - {{ block.super }}{% endblock %}
 {% block canonical_url %}https://{{ request.get_host }}{% url 'detail_post_page' slug=object.slug %}{% endblock %}
 
-{% block meta_seo %}
-  <meta name="description" content="{% if object.meta_description %}{{ object.meta_description }}{% else %}{{ object.description|safe|striptags|truncatewords:"20" }}{% endif %}">
-  <meta name="author" content="{{ object.author }}">
-  <meta name="keywords" content="{% if object.keywords %}{{ object.keywords }}{% else %}{{ object.title }}{% endif %}"/>
-  {% for tag in object.tags.all %}
-  <meta property="article:tag" content="{{ tag.title }}" />
-  {% endfor %}
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:type" content="article" />
-  <meta property="og:title" content="{{ object.title }}"/>
-  <meta property="og:description" content="{% if object.meta_description %}{{ object.meta_description }}{% else %}{{ object.description|safe|striptags|truncatewords:"20" }}{% endif %}"/>
-  <meta property="og:url" content="https://{{ request.get_host }}{% url 'detail_post_page' slug=object.slug %}"/>
-  {% if object.cover %}
-  <meta property="og:image" content="https://{{ request.get_host }}/media/{{ object.cover }}"/>
-  {% endif %}
-  <meta property="og:site_name" content="python.web.id" />
-  <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:description" content="{% if object.meta_description %}{{ object.meta_description }}{% else %}{{ object.description|safe|striptags|truncatewords:"20" }}{% endif %}"/>
-  {% if object.cover %}
-  <meta name="twitter:image:src" content="https://{{ request.get_host }}/media/{{ object.cover }}"/>
-  {% endif %}
-  <meta name="twitter:title" content="{{ object.title }}"/>
-  <meta name="twitter:domain" content="python.web.id"/>
-  <meta name="twitter:creator" content="@agusmakmun6"/>
-{% endblock %}
 
 {% block content %}
   <div class="post" id="printable">
@@ -62,9 +37,9 @@
 
     <div class="share panel-body" id="non-printable">
       <span>Share on: </span>
-      <a class="btn btn-sm btn-primary cst__radius" href="https://www.facebook.com/sharer/sharer.php?u=https://python.web.id{% url "detail_post_page" slug=object.slug %}" target="_blank">Facebook</a>
-      <a class="btn btn-sm btn-danger cst__radius" href="https://plus.google.com/share?url=https://python.web.id{% url "detail_post_page" slug=object.slug %}" target="_blank">Google+</a>
-      <a class="btn btn-sm btn-info cst__radius" href="https://twitter.com/share" target="_blank">Twitter</a>
+      <!-- <a class="btn btn-sm btn-primary cst__radius" href="https://www.facebook.com/sharer/sharer.php?u=https://python.web.id{% url "detail_post_page" slug=object.slug %}" target="_blank">Facebook</a> -->
+      <!-- <a class="btn btn-sm btn-danger cst__radius" href="https://plus.google.com/share?url=https://python.web.id{% url "detail_post_page" slug=object.slug %}" target="_blank">Google+</a> -->
+      <!-- <a class="btn btn-sm btn-info cst__radius" href="https://twitter.com/share" target="_blank">Twitter</a> -->
       <a class="btn btn-sm btn-success cst__radius" href="javascript:window.print()">Print Page</a>
     </div>
 
@@ -86,7 +61,9 @@
             </a>
           </div>
           <div class="media-body">
-            <h4 class="media-heading">{{ object.author }}</h4>
+            <a href="{% url 'author_posts_page' username=object.author.user.username %}">
+              <h4 class="media-heading">{{ object.author }}</h4>
+            </a>
             {{ object.author.about|safe }}<br />
               Website: <a href="{{ object.author.website }}" target="_blank">{{ object.author.website }}</a>
           </div>
@@ -100,7 +77,7 @@
       </div>
         <ul class="list-group">
           {% for post in related_posts %}
-            <li class="list-group-item"><a href="{% url "detail_post_page" slug=post.slug %}">{{ post.title }}</a> - <i>{{ post.created }}</i></li>
+            <li class="list-group-item"><a href="{% url 'detail_post_page' slug=post.slug %}">{{ post.title }}</a> - <i>{{ post.created }}</i></li>
             {% empty %}
               <p style="margin: 1em;">No related posts!</p>
           {% endfor %}
@@ -120,20 +97,6 @@
       </li>
     </ul>
 
-    {% load disqus_tags %}
-    {% set_disqus_identifier "blogpost_" object.title %}
-    {% set_disqus_title object.title %}
-    {% disqus_show_comments %}
     <!-- disqus_dev -->
   </div>
-
-  <link rel="stylesheet" href="{% static 'assets/css/highlight.css' %}">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.5.0/highlight.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('pre').each(function(i, block) {
-        hljs.highlightBlock(block);
-      });
-    });
-  </script>
 {% endblock %}

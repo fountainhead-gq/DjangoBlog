@@ -6269,6 +6269,10 @@ a.thumbnail:hover {
     width: 10000px
 }
 
+.media-body a{
+    color: #858899;
+}
+
 .media-object {
     display: block
 }
@@ -6303,6 +6307,7 @@ a.thumbnail:hover {
 }
 
 .media-heading {
+    color: #858899;
     margin-top: 0;
     margin-bottom: 5px
 }
