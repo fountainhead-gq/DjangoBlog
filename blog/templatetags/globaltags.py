@@ -14,7 +14,7 @@ register = template.Library()
     {{ tag.title }} <span class="badge">{{ tag.total }}</span>
   </a>
 {% empty %}
-  <p>No tags yet!</p>
+  <p>No tags yet</p>
 {% endfor %}
 '''
 

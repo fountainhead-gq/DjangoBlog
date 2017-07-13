@@ -2,5 +2,5 @@
 {% block title %}Posts under query {{ query }} - {{ block.super }}{% endblock %}
 {% block canonical_url %}https://{{ request.get_host }}{% url 'search_posts_page' %}{% endblock %}
 {% block message_info_homepage %}
-  <p class="message__info"> <i>{{ query }} </i> 的全部查询</p>
+  <p class="message__info"> <i>{{ query }} </i> </p>
 {% endblock %}

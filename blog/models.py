@@ -76,7 +76,8 @@ class Post(TimeStampedModel):
                               null=True,
                               blank=True,
                               help_text='Optional cover post')
-    description = RedactorField()
+    description = models.TextField()
+    # description = RedactorField()
     category = models.ForeignKey(Category)
     tags = models.ManyToManyField('Tag')
     keywords = models.CharField(max_length=200, null=True, blank=True,

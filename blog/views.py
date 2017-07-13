@@ -52,6 +52,18 @@ class HomepageView(generic.ListView):
     queryset = Post.objects.published()
     template_name = 'blog/blog_home.html'
     paginate_by = 5
+    context_object_name = 'post'
+
+    def get_object(self, queryset=None):
+        # 渲染markdown样式，覆写 get_object 方法的目的是因为需要对 post 的 description 值进行渲染
+        post = super(HomepageView, self).get_object(queryset=None)
+        post.description = markdown.markdown(post.description,
+                                      extensions=[
+                                          'markdown.extensions.extra',
+                                          'markdown.extensions.codehilite',
+                                          'markdown.extensions.toc',
+                                      ])
+        return post.description
 
     def get_context_data(self, **kwargs):
         context_data = super(HomepageView, self).get_context_data(**kwargs)
@@ -174,6 +186,16 @@ class DetailPostView(generic.DetailView):
                 request, *args, **kwargs
             )
 
+    def get_object(self, queryset=None):
+        # 渲染markdown样式，覆写 get_object 方法的目的是因为需要对 post 的 description 值进行渲染
+        post = super(DetailPostView, self).get_object(queryset=None)
+        post.description = markdown.markdown(post.description,
+                                      extensions=[
+                                          'markdown.extensions.extra',
+                                          'markdown.extensions.codehilite',
+                                          'markdown.extensions.toc',
+                                      ])
+        return post
 
     def get_context_data(self, **kwargs):
         context_data = super(DetailPostView, self).get_context_data(**kwargs)
@@ -183,7 +205,6 @@ class DetailPostView(generic.DetailView):
         context_data['related_posts'] = related_posts[:5]  # limit for post
         context_data['get_client_ip'] = self.get_client_ip()
         context_data['visitor_counter'] = self.object.increase_views()
-        # context_data['visitor_counter'] = self.object.increase_views()
         return context_data
 
 
