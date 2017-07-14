@@ -27,8 +27,9 @@
           </a>
         </div>
       {% endif %}
-      <!--{{ object.description|safe|truncatewords:"50"|linebreaks }}-->
-      {{ object.description|slice:"150"|linebreaks|safe  }}
+      {# {{ object.description|safe|truncatewords:"50"|linebreaks }} #}
+      {{ object.description|safe|slice:"150"|linebreaks  }}
+
       <span class='post-button' style="margin-bottom: .5em;float:right">
         <a href="{% url 'detail_post_page' slug=object.slug %}">Continue »</a>
       </span>

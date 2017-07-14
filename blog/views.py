@@ -52,18 +52,19 @@ class HomepageView(generic.ListView):
     queryset = Post.objects.published()
     template_name = 'blog/blog_home.html'
     paginate_by = 5
-    context_object_name = 'post'
+    context_object_name = 'object_list'
 
-    def get_object(self, queryset=None):
-        # 渲染markdown样式，覆写 get_object 方法的目的是因为需要对 post 的 description 值进行渲染
-        post = super(HomepageView, self).get_object(queryset=None)
-        post.description = markdown.markdown(post.description,
+    def get_queryset(self):
+        object_list = Post.objects.published()
+        for objects  in object_list:
+            # 将markdown标记的文本转为html文本
+            objects.description = markdown.markdown(objects.description,
                                       extensions=[
                                           'markdown.extensions.extra',
                                           'markdown.extensions.codehilite',
                                           'markdown.extensions.toc',
-                                      ])
-        return post.description
+                                      ])        
+        return object_list
 
     def get_context_data(self, **kwargs):
         context_data = super(HomepageView, self).get_context_data(**kwargs)

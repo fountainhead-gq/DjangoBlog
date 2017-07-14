@@ -5,6 +5,7 @@ django-import-export==0.5.1
 django-nocaptcha-recaptcha==0.0.19
 django-suit==0.2.25
 django-wysiwyg-redactor==0.5.1
+djangorestframework==3.6.3
 Markdown==2.6.8
 mock==2.0.0
 pbr==3.1.1
@@ -15,3 +16,4 @@ six==1.10.0
 tablib==0.11.5
 pytz==2017.2
 jieba==0.38
+Pygments==2.2.0
