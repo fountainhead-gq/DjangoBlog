@@ -54,6 +54,7 @@ class HomepageView(generic.ListView):
     paginate_by = 5
     context_object_name = 'object_list'
 
+    # 过滤数据，获取所有已发布文章，并且将内容转成markdown形式
     def get_queryset(self):
         object_list = Post.objects.published()
         for objects  in object_list:
@@ -75,28 +76,6 @@ class HomepageView(generic.ListView):
         ).get_page_range()
         return context_data
 
-
-class CategoryView(generic.ListView):
-    model = Post
-    template_name = 'blog/blog_home.html'
-    context_object_name = 'post_list'
-
-    def get_queryset(self):
-        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
-        return super(CategoryView, self).get_queryset().filter(category=cate)
-
-
-class ArchivesView(generic.ListView):
-    model = Post
-    template_name = 'blog/blog_home.html'
-    context_object_name = 'post_list'
-
-    def get_queryset(self):
-        year = self.kwargs.get('year')
-        month = self.kwargs.get('month')
-        return super(ArchivesView, self).get_queryset().filter(created__year=year,
-                                                               created__month=month
-                                                               )
 
 
 class DetailPostView(generic.DetailView):
@@ -284,9 +263,25 @@ class TagPostsView(generic.ListView):
         return context_data
 
 
-class DetailPageView(generic.DetailView):
-    model = Page
-    template_name = 'blog/blog_page.html'
+class CategoryView(generic.ListView):
+    model = Post
+    template_name = 'blog/blog_home.html'
+    # context_object_name = 'post_list'
+
+    def get_queryset(self):
+        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        return super(CategoryView, self).get_queryset().filter(category=cate)
+
+
+class ArchivesView(generic.ListView):
+    model = Post
+    template_name = 'blog/blog_home.html'
+    # context_object_name = 'post_list'
+
+    def get_queryset(self):
+        year = self.kwargs.get('year')
+        month = self.kwargs.get('month')
+        return super(ArchivesView, self).get_queryset().filter(created__year=year,created__month=month)
 
 
 class SitemapView(generic.ListView):
@@ -302,6 +297,16 @@ class SitemapView(generic.ListView):
             self.request.GET.get('page')
         ).get_page_range()
         return context_data
+
+
+class DetailPageView(generic.DetailView):
+    model = Page
+    template_name = 'blog/blog_page.html'
+
+
+class AboutView(generic.TemplateView):
+    model = Page
+    template_name = 'blog/blog_about.html'
 
 
 class ContactView(generic.TemplateView):
@@ -339,12 +344,6 @@ class ContactView(generic.TemplateView):
         form = ContactForm(self.request.POST or None)
         context['form'] = form
         return context
-
-
-class AboutView(generic.TemplateView):
-    model = Page
-    template_name = 'blog/blog_about.html'
-
 
 
 class TrendingPostsView(generic.ListView):

@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}
 
+
 {% block content %}
   {% block message_info_homepage %}{% endblock %}
-
   {% for object in object_list %}
     <div class="post">
       <h2><a href="{% url 'detail_post_page' slug=object.slug %}">{{ object.title }}</a></h2>
@@ -14,10 +14,11 @@
         <!--<span class="ion-ios-clock"></span>-->
         <span class="fa fa-tags"></span> 
         {% for tag in object.tags.all %}
-        
           <a href="{% url 'tag_posts_page' slug=tag.slug %}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
-        {% empty %}暂无
+        {% empty %}no tag yet
         {% endfor %}
+        &nbsp;
+        <span class="fa fa-eye"></span> {{ object.views }} 
       </p>
 
       {% if object.cover %}
@@ -36,7 +37,7 @@
       <div style="clear:both;border-bottom: 1px solid #F2F2F2;margin: 10px 0"></div>
     </div>
   {% empty %}
-    <p class="alert alert-warning text-center cst__radus"><span class="glyphicon glyphicon-info-sign"></span> Articles does not exist..</p>
+    <p class="alert alert-warning text-center cst__radus"><span class="glyphicon glyphicon-info-sign"></span> Article does not exist..</p>
   {% endfor %}
 
   {% if is_paginated %}

@@ -11,12 +11,12 @@ class CorrectMimeTypeFeed(Rss201rev2Feed):
 class LatestPosts(Feed):
     feed_type = CorrectMimeTypeFeed
 
-    title = "Feed Blog Posts"
+    title = "Feed Article Posts"
     link = "/feed/"
-    description = "Latest Feed Blog Posts"
+    description = "Latest Feed Article Posts"
 
     def author_name(self):
-        return "Summon Agus"
+        return "shucun guo"
 
     def items(self):
         return Post.objects.published()[:10]

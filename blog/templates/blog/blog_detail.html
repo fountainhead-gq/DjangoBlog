@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
+
+{% comment %}
 {% block title %}{{ object.title }} - {{ block.super }}{% endblock %}
 {% block canonical_url %}https://{{ request.get_host }}{% url 'detail_post_page' slug=object.slug %}{% endblock %}
-
+{% endcomment %}
 
 {% block content %}
   <div class="post" id="printable">
@@ -15,14 +17,12 @@
       <span class="fa fa-tags"></span> 
       {% for tag in object.tags.all %}
         <a href="{% url 'tag_posts_page' slug=tag.slug %}">{{ tag }}</a>{% if not forloop.last %}, {% endif %}
-      {% empty %}暂无
+      {% empty %} no tag yet
       {% endfor %}
       &nbsp;
-      <!--<br />-->
-      <!--Your ip address: {{ get_client_ip }} &nbsp;-->
-      <!--&#9679; -->
       <!--<span class="fa fa-eye"></span> {{ visitor_counter }} -->
-      <span class="fa fa-eye"></span> {{ object.views }} 
+      <span class="fa fa-eye"></span> {{ object.views }} &nbsp;
+      <span class="fa fa-map-marker"></span> {{ get_client_ip }}  
     </div>
 
     <p>
