@@ -1,9 +1,10 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.views.generic import TemplateView
 from django.contrib.sitemaps import GenericSitemap
 from django.contrib.sitemaps.views import sitemap
 from blog.views import *
 from blog.feed import LatestPosts
+
 
 info_dict = {
     'queryset': Post.objects.all(),
@@ -18,10 +19,10 @@ info_dict = {
 #   bad: r'^(?P<slug>\S+)/$'
 # thanks to: http://stackoverflow.com/a/30271379/6396981
 
+
 urlpatterns = [
     # Handler for Maintenance mode.
     # url(r'^$', TemplateView.as_view(template_name='maintenance.html', content_type='text/html')),
-
     url(r'^$', HomepageView.as_view(), name='homepage'),
     url(r'^blog/(?P<slug>[\w\-]+)/$', DetailPostView.as_view(), name='detail_post_page'),
     url(r'^search/$', SearchPostsView.as_view(), name='search_posts_page'),
@@ -32,10 +33,10 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'blog': GenericSitemap(
         info_dict, priority=0.6)}}, name='django.contrib.sitemaps.views.sitemap'),
     url(r'^robots\.txt/$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
-    url(r'^about/$', AboutView.as_view(), name='about_page'),
     url(r'^archives/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', ArchivesView.as_view(), name='archives'),
     url(r'^sitemap/$', SitemapView.as_view(), name='sitemap_page'),
     url(r'^contact/$', ContactView.as_view(), name='contact_page'),
     url(r'^trending/$', TrendingPostsView.as_view(), name='trending_posts_page'),
-    url(r'^(?P<slug>[\w\-]+)/$', DetailPageView.as_view(), name='detail_page'),
+    # url(r'^about/$', AboutView.as_view(), name='about_page'),
+    # url(r'^(?P<slug>[\w\-]+)/$', DetailPageView.as_view(), name='detail_page'),
 ]
