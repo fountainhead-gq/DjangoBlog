@@ -31,7 +31,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
     # author = AuthorSerializer()
     # category = CategorySerializer()
     # tags = TagSerializer()
-    
+    tags = serializers.PrimaryKeyRelatedField(many=True, queryset=Tag.objects.all())
     class Meta:
         model = Post
         # fields = '__all__'
