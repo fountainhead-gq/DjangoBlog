@@ -41,6 +41,24 @@ def recentposts():
 @register.assignment_tag
 def categoryposts():
     category = Category.objects.all()
+    return category[:20]
+
+
+@register.assignment_tag
+def categorylifes():
+    category = Category.objects.filter(classify='L')
+    return category[:10]
+
+
+@register.assignment_tag
+def categoryessays():
+    category = Category.objects.filter(classify='E')
+    return category[:10]
+
+
+@register.assignment_tag
+def categorytech():
+    category = Category.objects.filter(classify='T')
     return category[:10]
 
 

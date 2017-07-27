@@ -32,8 +32,8 @@ class CategoryResource(resources.ModelResource):
 
 class CategoryAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = CategoryResource
-    list_display = ('name',)
-    search_fields = ['name']
+    list_display = ('name', 'classify')
+    search_fields = ['name', 'classify']
 
 
 class TagResource(resources.ModelResource):
@@ -91,7 +91,7 @@ class PostResource(resources.ModelResource):
 class PostAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = PostResource
     form = TagAdminForm
-    list_display = ('title', 'author', 'created', 'modified', 'publish')
+    list_display = ('title', 'author', 'created', 'category', 'modified', 'publish')
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ['title', 'description', 'author__user__username']
     list_filter = ['publish', 'author__user__username', 'created']

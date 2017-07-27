@@ -39,7 +39,7 @@ img.cover-post {
   border-radius: 2px;
   line-height: 2;
   margin: 0 4px 8px 4px;
-  border: 2px solid #666;
+  /* border: 1px solid #666; */
   padding: 0 10px;
   display: inline-block;
 }

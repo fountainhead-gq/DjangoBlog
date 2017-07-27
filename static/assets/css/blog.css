@@ -131,7 +131,7 @@ h6, .h6 {
     letter-spacing: 1px;
     font-weight: 700;
     text-transform: uppercase;
-    border-top: 1px solid #e6e6e6;
+    /* border-top: 1px solid #e6e6e6; */
     /* color: #2b2b2b; */
 }
 

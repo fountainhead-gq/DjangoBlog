@@ -2,9 +2,13 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-
 from redactor.fields import RedactorField
 
+classify = {
+        'L': u'life',
+        'E': u'essay',
+        'T': u'tech',
+}
 
 class TimeStampedModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -37,6 +41,7 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    classify = models.CharField(max_length=5, choices=classify.items(), verbose_name=u'classify')
 
     def __str__(self):
         return self.name
