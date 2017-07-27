@@ -29,7 +29,7 @@ handler500 = 'blog.views.handler500'
 
 router = DefaultRouter()
 router.register(r'posts', PostViewSet, base_name='posts')
-router.register(r'authors', AuthorViewSet, base_name='authors')
+# router.register(r'authors', AuthorViewSet, base_name='authors')
 router.register(r'category', CategoryViewSet, base_name='category')
 router.register(r'tags', TagViewSet)
 

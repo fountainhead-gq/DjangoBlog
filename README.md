@@ -9,6 +9,20 @@ Django Blog
 - Python 3.5
 
 
+### Features
+
+* Archives views
+* Related entries
+* RSS or Atom Feeds
+* Tags and categories views
+* Advanced search engine
+* Custom templates for various contents
+* Editing in Markdown
+* Admin dashboard
+* Django REST Framework
+* Comments
+* Sitemaps
+
 
 ### Instalation
 
