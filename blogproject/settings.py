@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'site_secret_key'
+SECRET_KEY = '&r0(7y^q4ib6hye!re6pl+!1r1n%&6ys%r4+cg+n6bj6fejwdq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -216,14 +216,14 @@ NORECAPTCHA_SECRET_KEY = "key_key_key_key"
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
-    '/path/to/yourenv/blogproject/static',
+    '/dirs/blogproject/static',
 )
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = '/path/to/yourenv/blogproject/static'
+#STATIC_ROOT = '/dirs/blogproject/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/path/to/yourenv/blogproject/media'
+MEDIA_ROOT = '/dirs/blogproject/media'
 
 # Editor Redactor
 import time

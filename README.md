@@ -1,6 +1,6 @@
 ## Django Blog
 
--------
+
 
 
 ### Technologies
@@ -59,4 +59,3 @@ $ pip install -r requirements.txt
 ```
 python manage.py runserver
 ```
--------
