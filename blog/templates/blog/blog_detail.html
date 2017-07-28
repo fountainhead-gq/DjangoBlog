@@ -36,11 +36,11 @@
     {{ object.description|safe }}
 
     <div class="share panel-body" id="non-printable">
-      <span>Share on: </span>
+      <!-- <span>Share on: </span> -->
       <!-- <a class="btn btn-sm btn-primary cst__radius" href="https://www.facebook.com/sharer/sharer.php?u=https://python.web.id{% url "detail_post_page" slug=object.slug %}" target="_blank">Facebook</a> -->
       <!-- <a class="btn btn-sm btn-danger cst__radius" href="https://plus.google.com/share?url=https://python.web.id{% url "detail_post_page" slug=object.slug %}" target="_blank">Google+</a> -->
       <!-- <a class="btn btn-sm btn-info cst__radius" href="https://twitter.com/share" target="_blank">Twitter</a> -->
-      <a class="btn btn-sm btn-success cst__radius" href="javascript:window.print()">Print Page</a>
+      <!-- <a class="btn btn-sm btn-success cst__radius" href="javascript:window.print()">Print Page</a> -->
     </div>
 
     <style type="text/css" media="print">
@@ -73,13 +73,13 @@
 
     <div class="panel panel-default related" id="non-printable">
       <div class="panel-heading">
-        <h3 class="panel-title">Related Posts</h3>
+        <h3 class="panel-title">Related Articles</h3>
       </div>
         <ul class="list-group">
           {% for post in related_posts %}
             <li class="list-group-item"><a href="{% url 'detail_post_page' slug=post.slug %}">{{ post.title }}</a> - <i>{{ post.created }}</i></li>
             {% empty %}
-              <p style="margin: 1em;">No related posts!</p>
+              <p style="margin: 1em;">No related articles!</p>
           {% endfor %}
         </ul>
     </div>
