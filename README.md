@@ -1,4 +1,4 @@
-Django Blog
+## Django Blog
 
 -------
 
