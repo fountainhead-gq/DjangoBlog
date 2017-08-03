@@ -227,7 +227,7 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = '/dirs/blogproject/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/media/'
+MEDIA_ROOT = 'media/'
 
 # Editor Redactor
 import time

@@ -20,10 +20,10 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Essay <b class="caret"></b></a>
           <ul class="dropdown-menu" style="max-height: 860px;">
             {% categoryessays as category_essay_list %} 
-            {% for category  in category_essay_list  %}
+            {% for cateslug  in category_essay_list  %}
             <li>
-              <a class="popular-entry-title-link" href="{% url 'category' category.pk %}">
-                 {{ category.name }}
+              <a class="popular-entry-title-link" href="{% url 'cateslug' cateslug.slug %}">
+                 {{ cateslug.name }}
               </a>   
             </li>
            {% empty %}
@@ -36,10 +36,10 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Life <b class="caret"></b></a>
           <ul class="dropdown-menu" style="max-height: 860px;">
             {% categorylifes as category_life_list %} 
-            {% for category  in category_life_list  %}
+            {% for cateslug  in category_life_list  %}
             <li>
-              <a class="popular-entry-title-link" href="{% url 'category' category.pk %}">
-                 {{ category.name }}
+              <a class="popular-entry-title-link" href="{% url 'cateslug' cateslug.slug %}">
+                 {{ cateslug.name }}
               </a>   
             </li>
            {% empty %}
@@ -51,17 +51,32 @@
            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tech <b class="caret"></b></a>
            <ul class="dropdown-menu" style="max-height: 860px;">
              {% categorytech as category_list %} 
-             {% for category  in category_list  %}
+             {% for cateslug  in category_list  %}
              <li>
-               <a class="popular-entry-title-link" href="{% url 'category' category.pk %}">
-                  {{ category.name }}
+               <a class="popular-entry-title-link" href="{% url 'cateslug' cateslug.slug %}">
+                  {{ cateslug.name }}
                </a>   
              </li>
             {% empty %}
             <p>No tech yet</p>
             {% endfor %}
            </ul>
-        </li>  
+        </li>
+        <!-- <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <b class="caret"></b></a>
+            <ul class="dropdown-menu" style="max-height: 860px;">
+              {% categoryposts as category_list %} 
+              {% for category  in category_list  %}
+              <li>
+                <a class="popular-entry-title-link" href="{% url 'category' category.pk %}">
+                   {{ category.name }}
+                </a>   
+              </li>
+             {% empty %}
+             <p>No tech yet</p>
+             {% endfor %}
+            </ul>
+         </li>     -->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Timeline <b class="caret"></b></a>
           <ul class="dropdown-menu" style="max-height: 860px;">

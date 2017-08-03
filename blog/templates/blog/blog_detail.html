@@ -35,6 +35,25 @@
     </p>
     {{ object.description|safe }}
 
+    <div class="row">
+        <div class="col-lg-12 text-center">
+            <div id="reward_board" class="reward_bar center">
+                <a id="btn_reward" class="btn_reward" href="javascript:;" title="打赏"></a>
+            </div>
+            <div id="reward_guide" class="reward_bar center hidden">
+                <p>
+                    <img src="{% static 'assets/img/alipay_reward.png' %}" title="支付宝打赏">
+                    <img src="{% static 'assets/img/wechat_reward.jpg' %}" title="微信打赏">
+                </p>
+                <p>
+                    <span class="bold">
+                    <a href="https://mobile.alipay.com/index.htm" target="_blank" rel="external">支付宝钱包</a>/
+			             <a href="http://weixin.qq.com/" target="_blank" rel="external">微信</a></span>, 扫一扫即可
+                </p>
+            </div>
+        </div>
+    </div>
+    
     <div class="share panel-body" id="non-printable">
       <!-- <span>Share on: </span> -->
       <!-- <a class="btn btn-sm btn-primary cst__radius" href="https://www.facebook.com/sharer/sharer.php?u=https://python.web.id{% url "detail_post_page" slug=object.slug %}" target="_blank">Facebook</a> -->
@@ -51,7 +70,7 @@
      }
     </style>
 
-    <div class="panel panel-default" id="non-printable">
+    <!-- <div class="panel panel-default" id="non-printable">
     <div class="panel-heading">Author</div>
       <div class="panel-body">
         <div class="media">
@@ -69,7 +88,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="panel panel-default related" id="non-printable">
       <div class="panel-heading">
@@ -99,4 +118,24 @@
 
     <!-- disqus_dev -->
   </div>
+{% endblock %}
+
+{% block extScriptFile %}
+<script>
+    jQuery(function($) {
+        $.fn.ready(function() {
+            $('#btn_reward').click(function(){
+          $('#reward_board').addClass('hidden');
+          $('#reward_guide').removeClass('hidden');
+        });
+            // {% if user.is_authenticated %}
+            // setAuthenticatedUser(
+            //         '{{ user.get_full_name|default:request.user.get_username }}',
+            //         '{{ user.email }}',
+            //         '{{ user.url }}'
+            // );
+            // {% endif %}
+        });
+    });
+</script>
 {% endblock %}

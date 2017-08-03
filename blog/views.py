@@ -324,6 +324,16 @@ class CategoryView(generic.ListView):
         return super(CategoryView, self).get_queryset().filter(category=cate)
 
 
+class CategorySlugView(generic.ListView):
+    model = Post
+    template_name = 'blog/blog_home.html'
+
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+        tag = get_object_or_404(Category, slug=slug)
+        return super(CategorySlugView, self).get_queryset().filter(category=tag)
+
+
 class ArchivesView(generic.ListView):
     model = Post
     template_name = 'blog/blog_home.html'

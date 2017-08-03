@@ -2,13 +2,13 @@
 # coding=utf-8
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponseBase
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from qiniu import Auth, urlsafe_base64_encode
+from qiniu import Auth, urlsafe_base64_encode, put_data
 from django.utils import timezone
 
 from photos.models import Photo
@@ -21,7 +21,8 @@ import re
 QINIU_ACCESS_KEY = settings.QINIU_ACCESS_KEY
 QINIU_SECRET_KEY = settings.QINIU_SECRET_KEY
 QINIU_BUCKET_NAME = settings.QINIU_BUCKET_NAME
-QINIU_BUCKET_DOMAIN = settings.QINIU_BUCKET_DOMAIN.rstrip('/')
+QINIU_BUCKET_DOMAIN = settings.QINIU_BUCKET_DOMAIN
+# QINIU_BUCKET_DOMAIN = settings.QINIU_BUCKET_DOMAIN.rstrip('/')
 
 
 def index(request):
@@ -85,17 +86,32 @@ def get_token(request):
     persistent_ops = ';'.join(
         (x[0] + urlsafe_base64_encode('%s:%s%s' % (QINIU_BUCKET_NAME, settings.MEDIA_ROOT, x[1])) for x in fops)
     )
-    print(persistent_ops)
+
+    # origin_img_name=''
     # https://developer.qiniu.com/kodo/manual/1206/put-policy
     policy = {
         'persistentOps':       persistent_ops,
         'persistentPipeline':  'djangoblog',
         'persistentNotifyUrl': settings.QINIU_CALLBACK_DOMAIN ,
-        'mimeLimit':           'image/jpeg;image/png',
+        'mimeLimit':           'image/jpeg', #image/jpeg;image/png
 
     }
     qiniu_auth = Auth(QINIU_ACCESS_KEY, QINIU_SECRET_KEY)
     upload_token = qiniu_auth.upload_token(QINIU_BUCKET_NAME, policy=policy)
+    print(upload_token)
+    # origin_img_key = '200.jpg'
+    # cache_img_keys_1920 = '200-1920x.jpg'
+    # cache_img_keys_512 = '200-512x.jpg'
+    # if HttpResponseBase.status_code == 200:
+    #     uploader = User.objects.filter(username='gq').first()
+    #     Photo.objects.create(title=origin_img_key,
+    #                          origin_image=origin_img_key,
+    #                          large_image=cache_img_keys_1920,
+    #                          small_image=cache_img_keys_512,
+    #                          uploader=uploader,
+    #                          date_upload=timezone.now()
+    #                          )
+        
     return JsonResponse(
         {
             'uptoken': upload_token,
@@ -105,7 +121,7 @@ def get_token(request):
 
 @csrf_exempt
 def callback(request):
-    print(request.body)
+    print('request.body: %s'% request.body)
     data = json.loads(request.body.decode("utf-8"))
 
     if data['code'] == 0 and data['inputBucket'] == QINIU_BUCKET_NAME:

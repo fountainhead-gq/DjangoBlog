@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^author/(?P<username>[\w\-]+)/$', AuthorPostsView.as_view(), name='author_posts_page'),
     url(r'^tag/(?P<slug>[\w\-]+)/$', TagPostsView.as_view(), name='tag_posts_page'),
     url(r'^category/(?P<pk>[0-9]+)/$', CategoryView.as_view(), name='category'),
+    url(r'^(?P<slug>[\w\-]+)/$', CategorySlugView.as_view(), name='cateslug'),
     url(r'^feed/$', LatestPosts(), name="feed"),
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': {'blog': GenericSitemap(
         info_dict, priority=0.6)}}, name='django.contrib.sitemaps.views.sitemap'),

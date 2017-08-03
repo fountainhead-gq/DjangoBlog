@@ -371,6 +371,19 @@ FileProgress.prototype.setStatus = function(status, isUploading) {
     }
 };
 
+// 绑定取消上传事件
+FileProgress.prototype.bindUploadCancel = function(up) {
+    var self = this;
+    if (up) {
+        self.fileProgressWrapper.find('.progressCancel').on('click', function(){
+            self.setCancelled(false);
+            self.setStatus("取消上传");
+            self.fileProgressWrapper.find('.status').css('left', '0');
+            up.removeFile(self.file);
+        });
+    }
+
+};
 
 FileProgress.prototype.appear = function() {
     if (this.getTimer() !== null) {

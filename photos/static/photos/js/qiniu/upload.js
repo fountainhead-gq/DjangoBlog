@@ -29,10 +29,16 @@ $(function() {
         //         return '';
         //     }
         // },
+        // filters: {
+        //     prevent_duplicates: true,
+        //     mime_types: [
+        //         {title: "Image files", extensions: "jpg,png"}
+        //     ]
+        // },
         filters: {
             prevent_duplicates: true,
             mime_types: [
-                {title: "Image files", extensions: "jpg,png"}
+                {title: "Image files", extensions: "jpg"}
             ]
         },
         domain: $('#domain').val(),
@@ -112,8 +118,8 @@ $(function() {
                     date = '0' + date;
                 }
                 var filename = file.name.substring(0, file.name.lastIndexOf('.')).toLowerCase();
-                var key = media_root + 'photos/' + year  + month  + date + '/' + filename + '.jpg';
-                // var key= media_root + 'photos/images/' + uploader_username +  '/' + filename + '.jpg';
+                // var key = media_root + 'photos/' + year  + month  + date + '/' + filename + '.jpg';
+                var key= media_root  + uploader_username +  '/' + filename + '.jpg';
                 return key;
             }
         }
