@@ -41,12 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework',
     'rest_framework_swagger',
-    'disqus',
-    'redactor',
+    'django_user_agents',
+
+    'imagekit',
     'nocaptcha_recaptcha',
     'import_export',
     'blog',
-    
+    'photos',    
 ]
 
 REST_FRAMEWORK = {
@@ -88,7 +89,7 @@ SUIT_CONFIG = {
     'LIST_PER_PAGE': 15
 }
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES  = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -96,6 +97,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'blogproject.urls'
@@ -122,12 +125,12 @@ WSGI_APPLICATION = 'blogproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 
 # Config with postgresql - psql (9.5.4, server 9.3.14)
@@ -137,16 +140,16 @@ WSGI_APPLICATION = 'blogproject.wsgi.application'
 # postgres=# CREATE USER database_user WITH PASSWORD 'password_user';
 # postgres=# GRANT ALL PRIVILEGES ON DATABASE database_nme TO database_user;
 # See this docs for more; https://goo.gl/9ONJKX
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Blog',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'Blog',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -168,21 +171,22 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 # LANGUAGE_CODE = 'en-us'
 # TIME_ZONE = 'UTC'
+
 LANGUAGE_CODE = 'zh-hans'
 TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
@@ -223,7 +227,7 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = '/dirs/blogproject/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/dirs/blogproject/media'
+MEDIA_ROOT = '/media/'
 
 # Editor Redactor
 import time
@@ -234,3 +238,11 @@ REDACTOR_AUTH_DECORATOR = 'django.contrib.auth.decorators.login_required'
 # django-rest-swagger登录
 LOGIN_URL = 'rest_framework:login'
 LOGOUT_URL = 'rest_framework:logout'
+
+# qiniu
+QINIU_ACCESS_KEY='vTvNf86Q3btrPteX7zEAlewHOyjnKSrGfOhWelLW'
+QINIU_SECRET_KEY='qUWut6Bwk8xJGYXmUr-Ma099AGa4IVMbf9V1aeSG'
+QINIU_BUCKET_NAME='djangoblog'
+QINIU_BUCKET_DOMAIN='otzsrcc8k.bkt.clouddn.com'
+QINIU_CALLBACK_DOMAIN='otzsrcc8k.bkt.clouddn.com'
+# QINIU_SECURE_URL='false'

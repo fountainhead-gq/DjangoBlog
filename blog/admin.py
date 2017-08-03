@@ -32,8 +32,9 @@ class CategoryResource(resources.ModelResource):
 
 class CategoryAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = CategoryResource
-    list_display = ('name', 'classify')
-    search_fields = ['name', 'classify']
+    list_display = ('name', 'classify', 'slug')
+    search_fields = ['name', 'classify', 'slug']
+    prepopulated_fields = {'slug': ('name',)}
 
 
 class TagResource(resources.ModelResource):

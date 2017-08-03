@@ -1,0 +1,167 @@
+{% load staticfiles %}
+{% load phototags %}
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="zh-cn" > <![endif]-->
+<html class="no-js" lang="zh-cn" >
+    <head>
+        <meta charset="utf-8">
+        <!-- If you delete this meta tag World War Z will become a reality -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>photos</title>
+        <!-- Tell Baido not to tranform the website -->
+        <meta http-equiv="Cache-Control" content="no-transform " />
+        <!-- ****** faviconit.com favicons ****** -->
+        <link rel="shortcut icon" href="{% static "assets/icons/favicon.ico" %}">
+        
+        <!-- If you are using the CSS version, only link these 2 files, you may add app.css to use for your overrides if you like -->
+        <link rel="stylesheet" href="{% static 'photos/css/normalize.css' %}">
+        <link rel="stylesheet" href="{% static 'photos/css/foundation.css' %}">
+        <link rel="stylesheet" href="{% static 'photos/fancybox/jquery.fancybox.css' %}" media="screen" />
+
+        <!-- If you are using the gem version, you need this only -->
+        <link rel="stylesheet" href="{% static 'photos/css/app.css' %}">
+        <script src="{% static 'photos/js/vendor/modernizr.js' %}"></script>
+
+    </head>
+
+
+    <body style="background-image: url({% static background_pattern %})">
+
+        <!-- body content here -->
+    {% if photos %}
+
+        <div class="row masonry-row">
+            <div class="large-12 columns">
+                <div class="masonryContainer">
+                {% for photo in photos %}
+                    {% if user|has_group:'photos_admins' %}
+                        {% if photo.width == 1 %}
+                        <div class="masonry-brick w1">
+                            <a data-tooltip aria-haspopup="true" class="has-tip" title="{{ photo.title }}">
+                                <img src="{{ qiniu_domain }}{{ photo.small_image}}" alt="{{ photo.title }}">
+                            </a>
+                        </div>
+                        {% elif photo.width == 2 %}
+                        <div class="masonry-brick w2">
+                            <a data-tooltip aria-haspopup="true" class="has-tip" title="{{ photo.title }}">
+                            <img src="{{ qiniu_domain }}{{ photo.large_image}}" alt="{{ photo.title }}">
+                            </a>
+                        </div>
+                        {% elif photo.width == 3 %}
+                        <div class="masonry-brick w3">
+                            <a data-tooltip aria-haspopup="true" class="has-tip" title="{{ photo.title }}">
+                            <img src="{{ qiniu_domain }}{{ photo.large_image}}" alt="{{ photo.title }}">
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="masonry-brick w4">
+                            <a data-tooltip aria-haspopup="true" class="has-tip" title="{{ photo.title }}">
+                            <img src="{{ qiniu_domain }}{{ photo.large_image}}" alt="{{ photo.title }}">
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% else %}
+                        {% if photo.width == 1 %}
+                        <div class="masonry-brick w1">
+                            <a class="fancybox" href="{{ qiniu_domain }}{{ photo.large_image}}" data-fancybox-group="gallery" title="{{ photo.title }}">
+                            <img src="{{ qiniu_domain }}{{ photo.small_image}}" alt="{{ photo.title }}">
+                            </a>
+                        </div>
+                        {% elif photo.width == 2 %}
+                        <div class="masonry-brick w2">
+                            <a class="fancybox" href="{{ qiniu_domain }}{{ photo.large_image}}" data-fancybox-group="gallery" title="{{ photo.title }}">
+                            <img src="{{ qiniu_domain }}{{ photo.large_image}}" alt="{{ photo.title }}">
+                            </a>
+                        </div>
+                        {% elif photo.width == 3 %}
+                        <div class="masonry-brick w3">
+                            <a class="fancybox" href="{{ qiniu_domain }}{{ photo.large_image}}" data-fancybox-group="gallery" title="{{ photo.title }}">
+                            <img src="{{ photo.large_image.url }}" alt="{{ photo.title }}">
+                            </a>
+                        </div>
+                        {% else %}
+                        <div class="masonry-brick w4">
+                            <a class="fancybox" href="{{ qiniu_domain }}{{ photo.large_image}}" data-fancybox-group="gallery" title="{{ photo.title }}">
+                            <img src="{{ qiniu_domain }}{{ photo.large_image}}" alt="{{ photo.title }}">
+                            </a>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% if photos.has_next %}
+        <nav class="hide" id="page-nav">
+            <a href="{% url 'photos:index_page' page_num=photos.next_page_number %}"></a>
+        </nav>
+        {% endif %}
+    {% endif %}
+
+
+        <script src="{% static 'photos/js/vendor/jquery.js' %}"></script>
+        <script src="{% static 'photos/js/vendor/fastclick.js' %}"></script>
+        <script src="{% static 'photos/js/foundation.min.js' %}"></script>
+        <script src="{% static 'photos/js/vendor/masonry.pkgd.js' %}"></script>
+        <script src="{% static 'photos/js/vendor/imagesloaded.pkgd.js' %}"></script>
+        <script src="{% static 'photos/js/vendor/jquery.infinitescroll.js' %}"></script>
+        <script src="{% static 'photos/fancybox/jquery.fancybox.js' %}"></script>
+        <script>
+            $(document).foundation();
+
+            function preventTabletScroll(e) {
+                e.preventDefault();
+            }
+
+            // initialize Masonry
+            var $container = $('.masonryContainer').masonry();
+            // layout Masonry again after all images have loaded
+            $container.imagesLoaded(function() {
+                $container.masonry({
+                    itemSelector : '.masonry-brick',
+                    columnWidth : '.masonry-brick.w1'
+                });
+                $('.fancybox').fancybox({
+                    padding : 0,
+                    beforeShow: function () {
+                        // Disable background of a tablet to scroll
+                        $('body').bind('touchmove.fb', preventTabletScroll);
+                        /* Disable right click */
+                        $.fancybox.wrap.bind("contextmenu", function (e) {
+                                return false; 
+                        });
+                    },
+                    afterClose: function() {
+                        // Allow background of a tablet to scroll
+                        $('body').unbind('touchmove.fb', preventTabletScroll);
+                    }
+                });
+            });
+
+            $container.infinitescroll({
+                navSelector  : '#page-nav',    // selector for the paged navigation 
+                nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
+                itemSelector : '.masonry-brick',     // selector for all items you'll retrieve
+                loading: {
+                    finishedMsg: 'No more pages to load.'
+                }
+            },
+            // trigger Masonry as a callback
+            function( newElements ) {
+                // hide new items while they are loading
+                var $newElems = $( newElements ).css({ opacity: 0 });
+                // ensure that images load before adding to masonry layout
+                $newElems.imagesLoaded(function(){
+                    // show elems now they're ready
+                    $newElems.animate({ opacity: 1 });
+                    $container.masonry( 'appended', $newElems ); 
+                    // refresh the tooltip
+                    $(document).foundation('tooltip', 'reflow');
+                });
+            }
+            );
+        </script>
+    </body>
+</html>

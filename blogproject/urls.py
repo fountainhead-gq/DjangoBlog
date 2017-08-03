@@ -37,7 +37,7 @@ schema_view = get_swagger_view(title='API')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    # url(r'^redactor/', include('redactor.urls')),
+    url(r'^photos/', include('photos.urls', namespace='photos')),
     url(r'^', include('blog.urls')),
     url(r'^api/', include(router.urls, namespace='api'), name='api'),
     url(r'^docs/', schema_view),

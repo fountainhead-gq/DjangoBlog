@@ -42,6 +42,7 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=200, unique=True)
     classify = models.CharField(max_length=5, choices=classify.items(), verbose_name=u'classify')
 
     def __str__(self):
