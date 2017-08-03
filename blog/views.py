@@ -18,6 +18,11 @@ from .models import Category
 from blog.models import *
 from blog.forms import ContactForm
 from blog.utils.paginator import GenericPaginator
+from blog.serializers import AuthorSerializer, PostSerializer, CategorySerializer, TagSerializer
+from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import detail_route, list_route
+from rest_framework.response import Response
 
 
 def handler400(request):
@@ -46,6 +51,52 @@ def handler500(request):
                                   context_instance=RequestContext(request))
     response.status_code = 500
     return response
+
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = (IsAuthenticated,)
+    # filter_backends = (filters.DjangoFilterBackend,)
+
+    # /api/posts/{pk}/detail/
+    @detail_route(methods=['get'])
+    def detail(self, request, pk=None):
+        post = get_object_or_404(Post, pk=pk)
+        result = {
+            'id': post.id,
+            'title': post.title,
+            'slug': post.slug,
+            'description': post.description,
+            'meta_description': post.meta_description
+        }
+
+        return Response(result, status=status.HTTP_200_OK)    
+
+    # /api/posts/all_posts/
+    @list_route(methods=['get'])
+    def all_posts(self, request):
+        post = Post.objects.values_list('title', flat=True).distinct()
+        return Response(post, status=status.HTTP_200_OK)
+
+
+class AuthorViewSet(viewsets.ModelViewSet):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = (IsAuthenticated,)
+
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = (IsAuthenticated,)
+
+
+class TagViewSet(viewsets.ModelViewSet):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+    permission_classes = (IsAuthenticated,)
+
 
 
 class HomepageView(generic.ListView):
@@ -299,14 +350,14 @@ class SitemapView(generic.ListView):
         return context_data
 
 
-class DetailPageView(generic.DetailView):
-    model = Page
-    template_name = 'blog/blog_page.html'
+# class DetailPageView(generic.DetailView):
+#     model = Page
+#     template_name = 'blog/blog_page.html'
 
 
-class AboutView(generic.TemplateView):
-    model = Page
-    template_name = 'blog/blog_about.html'
+# class AboutView(generic.TemplateView):
+#     model = Page
+#     template_name = 'blog/blog_about.html'
 
 
 class ContactView(generic.TemplateView):

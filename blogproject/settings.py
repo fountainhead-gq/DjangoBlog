@@ -39,13 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'django.contrib.sites',
+    'rest_framework',
+    'rest_framework_swagger',
+    'django_user_agents',
 
+<<<<<<< HEAD
     #'disqus',
     #'redactor',
+=======
+    'imagekit',
+>>>>>>> master
     'nocaptcha_recaptcha',
     'import_export',
     'blog',
-    'rest_framework',
+    'photos',    
 ]
 
 REST_FRAMEWORK = {
@@ -57,16 +64,20 @@ REST_FRAMEWORK = {
     #     'rest_framework.parsers.JSONParser',
     # )
     "DEFAULT_AUTHENTICATION_CLASSES": (
-         #'rest_framework.authentication.SessionAuthentication',
-         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        #'rest_framework.authentication.BasicAuthentication'
+         'rest_framework.authentication.SessionAuthentication',
+         'rest_framework.authentication.BasicAuthentication'
 
     ), 
     "DEFAULT_PERMISSION_CLASSES": (
         'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAdminUser',
         #'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-    )
+    ),
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
+    'PAGINATE_BY': 10
+    # 'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }
+
 
 # Django Suit configuration
 SUIT_CONFIG = {
@@ -83,7 +94,7 @@ SUIT_CONFIG = {
     'LIST_PER_PAGE': 15
 }
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES  = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -91,6 +102,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'blogproject.urls'
@@ -132,18 +145,16 @@ DATABASES = {
 # postgres=# CREATE USER database_user WITH PASSWORD 'password_user';
 # postgres=# GRANT ALL PRIVILEGES ON DATABASE database_nme TO database_user;
 # See this docs for more; https://goo.gl/9ONJKX
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'database_nme',
-        'USER': 'database_user',
-        'PASSWORD': 'password_user',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-'''
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'Blog',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
@@ -165,11 +176,22 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     }
+# }
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 # LANGUAGE_CODE = 'en-us'
 # TIME_ZONE = 'UTC'
+
 LANGUAGE_CODE = 'zh-hans'
 TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
@@ -203,6 +225,7 @@ NORECAPTCHA_SECRET_KEY = "key_key_key_key"
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
+<<<<<<< HEAD
     '/dir/blogproject/static',
 )
 
@@ -211,9 +234,31 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = '/dir/blogproject/media'
+=======
+    '/dirs/blogproject/static',
+)
+
+STATIC_URL = '/static/'
+#STATIC_ROOT = '/dirs/blogproject/static'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/media/'
+>>>>>>> master
 
 # Editor Redactor
 import time
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/' + time.strftime("%Y/%m/%d/")
 REDACTOR_AUTH_DECORATOR = 'django.contrib.auth.decorators.login_required'
+
+# django-rest-swagger登录
+LOGIN_URL = 'rest_framework:login'
+LOGOUT_URL = 'rest_framework:logout'
+
+# qiniu
+QINIU_ACCESS_KEY='vTvNf86Q3btrPteX7zEAlewHOyjnKSrGfOhWelLW'
+QINIU_SECRET_KEY='qUWut6Bwk8xJGYXmUr-Ma099AGa4IVMbf9V1aeSG'
+QINIU_BUCKET_NAME='djangoblog'
+QINIU_BUCKET_DOMAIN='otzsrcc8k.bkt.clouddn.com'
+QINIU_CALLBACK_DOMAIN='otzsrcc8k.bkt.clouddn.com'
+# QINIU_SECURE_URL='false'

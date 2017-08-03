@@ -1,6 +1,6 @@
-Django Blog
+## Django Blog
 
--------
+
 
 
 ### Technologies
@@ -8,6 +8,20 @@ Django Blog
 - Django 1.10
 - Python 3.5
 
+
+### Features
+
+* Archives views
+* Related entries
+* RSS or Atom Feeds
+* Tags and categories views
+* Advanced search engine
+* Custom templates for various contents
+* Editing in Markdown
+* Admin dashboard
+* Django REST Framework
+* Comments
+* Sitemaps
 
 
 ### Instalation
@@ -45,4 +59,3 @@ $ pip install -r requirements.txt
 ```
 python manage.py runserver
 ```
--------

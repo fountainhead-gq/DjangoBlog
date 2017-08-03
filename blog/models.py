@@ -2,9 +2,13 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-
 from redactor.fields import RedactorField
 
+classify = {
+        'L': u'life',
+        'E': u'essay',
+        'T': u'tech',
+}
 
 class TimeStampedModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -20,8 +24,9 @@ class Author(models.Model):
                                null=True,
                                blank=True,
                                help_text="Upload your photo for Avatar")
-    about = models.TextField()
+    about = models.TextField(blank=True, null=True)
     website = models.URLField(max_length=200, blank=True, null=True)
+    # website = models.URLField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return self.user.username
@@ -37,6 +42,8 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=200, unique=True)
+    classify = models.CharField(max_length=5, choices=classify.items(), verbose_name=u'classify')
 
     def __str__(self):
         return self.name
